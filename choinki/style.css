@@ -6,7 +6,7 @@ a{color:inherit}
 .nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;background:rgba(10,40,30,.75);backdrop-filter:blur(8px);color:#fff}
 .logo{font-family:'Playfair Display';font-weight:800;text-decoration:none;font-size:1.2rem}
 .links a{margin-left:22px;text-decoration:none;opacity:.85}.links a:hover{color:var(--gold);opacity:1}
-.hero{position:relative;min-height:100vh;background:radial-gradient(ellipse at 70% 20%,#1d4f6b 0%,#0b2236 45%,#06141f 100%);color:#fff;overflow:hidden;padding-top:70px}
+.hero{position:relative;min-height:min(100vh,860px);background:radial-gradient(ellipse at 70% 20%,#1d4f6b 0%,#0b2236 45%,#06141f 100%);color:#fff;overflow:hidden;padding-top:70px}
 .moon{position:absolute;top:100px;right:12vw;width:90px;height:90px;border-radius:50%;background:#fff6d5;box-shadow:0 0 60px 20px rgba(255,240,180,.35)}
 .sleigh{position:absolute;top:120px;width:340px;left:-360px;animation:fly 16s linear infinite}
 @keyframes fly{0%{transform:translate(0,40px)}50%{transform:translate(70vw,-20px)}100%{transform:translate(140vw,30px)}}
@@ -22,7 +22,7 @@ h1 span{font-family:'Mountains of Christmas';color:var(--gold);font-size:1.1em}
 .gold:hover{transform:translateY(-3px) scale(1.04)}
 .ghost{border:2px solid #fff;color:#fff}.ghost:hover{background:#fff;color:var(--g)}
 .green-btn{background:var(--g);color:#fff}
-.santa{width:min(300px,70vw);animation:bob 2.5s ease-in-out infinite}
+.santa{width:min(300px,55vw);animation:bob 2.5s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(-12px)}}
 .arm-r{transform-origin:150px 125px;animation:wave .8s ease-in-out infinite alternate}@keyframes wave{from{transform:rotate(-15deg)}to{transform:rotate(18deg)}}
 .eyes{animation:blink 4s infinite;transform-origin:100px 78px}@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
