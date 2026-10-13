@@ -18,3 +18,15 @@ if(location.search.includes('static')||!('IntersectionObserver' in window))docum
 const orn=document.getElementById('orn');if(orn){const cols=['#c62828','#d4a017','#2f6b3a','#e07a2e','#8e1b2b'];for(let i=0;i<14;i++){const d=document.createElement('div');d.className='o';d.style.setProperty('--l',(8+Math.random()*40)+'px');d.style.setProperty('--c',cols[i%5]);d.style.animationDelay=(-Math.random()*3)+'s';orn.appendChild(d)}}
 // string lights
 document.querySelectorAll('.lights').forEach(l=>{for(let i=0;i<40;i++){const b=document.createElement('i');b.style.animationDelay=(i%4*.4)+'s';l.appendChild(b)}});
+// gifts
+const TOYS=['🧸','🚂','🪆','🐴','⚽','🎈','🚗','🪀','🦄','🎨','🧩','🥁','⭐','🍬'];let AC;
+function giggle(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const t=AC.currentTime;for(let i=0;i<5;i++){const o=AC.createOscillator(),g=AC.createGain();o.type='triangle';o.frequency.setValueAtTime(700+Math.random()*250,t+i*.13);o.frequency.exponentialRampToValueAtTime(420,t+i*.13+.1);g.gain.setValueAtTime(.0001,t+i*.13);g.gain.exponentialRampToValueAtTime(.12,t+i*.13+.02);g.gain.exponentialRampToValueAtTime(.0001,t+i*.13+.11);o.connect(g).connect(AC.destination);o.start(t+i*.13);o.stop(t+i*.13+.12)}}catch(e){}}
+document.querySelectorAll('.gift').forEach(g=>g.addEventListener('click',()=>{if(g.classList.contains('open'))return;g.classList.add('open');giggle();
+ const r=g.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top;const ps=[];
+ for(let i=0;i<14;i++){const e=document.createElement('div');e.className='toy';e.textContent=TOYS[Math.random()*TOYS.length|0];document.body.appendChild(e);
+  ps.push({e,x:cx-20,y:cy-20,vx:(Math.random()-.5)*12,vy:-10-Math.random()*9,r:0,vr:(Math.random()-.5)*20,b:0})}
+ const floor=innerHeight-50;let t0=performance.now();
+ (function step(now){const age=now-t0;ps.forEach(p=>{p.vy+=.45;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;if(p.y>floor){p.y=floor;p.vy*=-.55;p.vx*=.8;p.vr*=.7;p.b++}
+  p.e.style.transform=`translate(${p.x}px,${p.y}px) rotate(${p.r}deg)`;p.e.style.opacity=age>2600?Math.max(0,1-(age-2600)/600):1});
+  if(age<3200)requestAnimationFrame(step);else{ps.forEach(p=>p.e.remove());g.classList.remove('open')}})(t0);
+}));
