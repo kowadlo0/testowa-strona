@@ -122,3 +122,16 @@ footer{position:relative;background:#3b1f14;color:#ffe9c4;text-align:center;padd
 .sec{padding:64px 5vw 70px}
 @media(max-width:520px){.stage{max-width:300px;margin:0 auto}.kid{font-size:40px}.k1{left:-36px}.k2{right:-36px}.k3{left:-32px}.k4{right:-30px}}
 @media(max-width:520px){.k2 span,.k4 span{left:0;transform:translateX(-70%)}}
+/* cross-browser fixes (Safari/Firefox) */
+.nav{-webkit-backdrop-filter:blur(8px)}
+.hero-photo{inset:-2%;will-change:transform;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform:translateZ(0);animation:kb 30s ease-in-out infinite alternate}
+@keyframes kb{from{transform:translateZ(0) scale(1)}to{transform:translateZ(0) scale(1.06)}}
+.photo{position:relative;isolation:isolate;-webkit-mask-image:-webkit-radial-gradient(white,black);transform:translateZ(0)}
+.photo img{display:block;-webkit-backface-visibility:hidden;backface-visibility:hidden;will-change:transform}
+.tree-card{will-change:transform}
+.gift{-webkit-appearance:none;appearance:none;padding:0;margin:0;font:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation;outline:none}
+.gift.open{animation:none}.gift .lid{pointer-events:none}
+.toy{line-height:1;width:48px;height:48px;text-align:center;will-change:transform,opacity;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.kid{font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+#snow{will-change:transform}
+@media (prefers-reduced-motion:reduce){.hero-photo{animation:none}}
