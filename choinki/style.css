@@ -135,3 +135,4 @@ footer{position:relative;background:#3b1f14;color:#ffe9c4;text-align:center;padd
 .kid{font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
 #snow{will-change:transform}
 @media (prefers-reduced-motion:reduce){.hero-photo{animation:none}}
+.santa-svg{right:120px}@media(max-width:520px){.santa-svg{right:auto;left:2vw}}
