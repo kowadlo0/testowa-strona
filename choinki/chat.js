@@ -1,5 +1,5 @@
 (function(){
-const TEL='+48 500 000 000',TELH='tel:+48500000000',MAIL='choinki@example.com';
+const TEL='123 222 444',TELH='tel:+48123222444',MAIL='choinki@gmail.com';
 const santa='<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="36" r="17" fill="#f3c9a8"/><path d="M15 38 Q14 60 32 62 Q50 60 49 38 Q42 46 32 44 Q22 46 15 38Z" fill="#fff"/><circle cx="26" cy="34" r="2.3" fill="#222"/><circle cx="38" cy="34" r="2.3" fill="#222"/><circle cx="32" cy="40" r="3" fill="#e88"/><path d="M14 28 Q30 0 54 14 L50 26Z" fill="#c62828"/><circle cx="55" cy="14" r="5" fill="#fff"/><rect x="12" y="24" width="40" height="8" rx="4" fill="#fff"/></svg>';
 const prices=[...document.querySelectorAll('#cennik tbody tr')].map(r=>[...r.cells].map(c=>c.textContent.trim()));
 const heads=[...document.querySelectorAll('#cennik thead th')].map(c=>c.textContent.trim());
@@ -9,12 +9,12 @@ const priceFor=n=>{const r=prices.find(p=>norm(p[0]).includes(n));return r?{html
 const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ł/g,'l');
 const A={
  godziny:()=>({html:'Zapraszamy <b>od 5 do 20 grudnia</b>, codziennie w godz. <b>15:00–22:00</b> 🕒\nTakże w weekendy!',act:go('godziny')}),
- ceny:()=>({html:'Przykładowy cennik (wg wysokości):'+'<table>'+prices.map(r=>`<tr><td><b>${r[0]}</b></td><td>od ${r[1]}</td></tr>`).join('')+'</table>Dodatki: stojak od 39 zł, siatkowanie gratis, docięcie pnia 10 zł.',act:go('cennik')}),
- dowoz:()=>({html:'🚚 Dowozimy choinki po <b>Mokotowie za 30 zł</b>. Na miejscu zapakujemy drzewko w siatkę (<b>gratis</b>), a stojak dobierzesz <b>od 39 zł</b>.'}),
+ ceny:()=>({html:'Przykładowy cennik (wg wysokości):'+'<table>'+prices.map(r=>`<tr><td><b>${r[0]}</b></td><td>od ${r[1]}</td></tr>`).join('')+'</table>Dodatki: stojak od 75 zł, siatkowanie gratis, docięcie pnia 10 zł.',act:go('cennik')}),
+ dowoz:()=>({html:'🚚 Dowozimy choinki po <b>Mokotowie za 30 zł</b>. Na miejscu zapakujemy drzewko w siatkę (<b>gratis</b>), a stojak dobierzesz <b>od 75 zł</b>.'}),
  dojazd:()=>({html:'📍 Znajdziesz nas przy <b>ul. Bluszczańskiej</b> w Warszawie (Mokotów, Siekierki).',act:go('dojazd')}),
  gatunki:()=>({html:'Mamy 4 gatunki 🌲\n• <b>Świerk pospolity</b> – klasyka, intensywny zapach\n• <b>Jodła kaukaska</b> – miękkie igły, długo nie opadają\n• <b>Świerk srebrny</b> – niebieskawy, regularny\n• <b>Sosna</b> – długie, puszyste igły'}),
- kontakt:()=>({html:`📞 <a href="${TELH}">${TEL}</a>\n✉️ <a href="mailto:${MAIL}">${MAIL}</a>\n(dane testowe)`,act:go('kontakt')}),
- stojak:()=>({html:'Stojaki mamy <b>od 39 zł</b>, a docięcie pnia kosztuje 10 zł 🪚'}),
+ kontakt:()=>({html:`📞 <a href="${TELH}">${TEL}</a>\n✉️ <a href="mailto:${MAIL}">${MAIL}</a>`,act:go('kontakt')}),
+ stojak:()=>({html:'Stojaki mamy <b>od 75 zł</b>, a docięcie pnia kosztuje 10 zł 🪚'}),
  siatka:()=>({html:'Siatkowanie jest <b>gratis</b> – choinka zmieści się w każdym aucie 🎁'}),
  hello:()=>({html:'Cześć! 👋 Wybierz temat poniżej albo zapytaj o godziny, ceny, dowóz czy gatunki.'}),
  thanks:()=>({html:'Proszę bardzo! Wesołych Świąt 🎅🎄'}),
