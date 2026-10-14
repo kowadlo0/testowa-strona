@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testowa strona Jasia</title>
+<style>
+  body{margin:0;height:100vh;overflow:hidden;font-family:system-ui,sans-serif;background:linear-gradient(135deg,#ffecd2,#fcb69f);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;user-select:none}
+  h1{font-size:3rem;margin:0 0 .5rem;color:#5a2a27}
+  p{color:#7a3e3a;font-size:1.2rem}
+  #cat{font-size:5rem;position:absolute;transition:transform .2s}
+  .emoji{position:absolute;font-size:2.5rem;pointer-events:none;animation:fly 1.6s ease-out forwards}
+  @keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(720deg) scale(.2);opacity:0}}
+  #score{position:absolute;top:1rem;right:1.5rem;font-size:1.3rem;color:#5a2a27}
+
+  .panel{position:absolute;bottom:1.5rem;background:#fff8;border-radius:16px;padding:1rem;box-shadow:0 6px 20px #0002;cursor:default}
+  #ttt{left:1.5rem} #clock{right:1.5rem;text-align:center}
+  #board{display:grid;grid-template-columns:repeat(3,60px);gap:6px;margin:.5rem auto}
+  #board button{width:60px;height:60px;font-size:2rem;border:none;border-radius:10px;background:#fff;cursor:pointer}
+  #board button:hover{background:#ffe3d3}
+  .house{width:170px;margin:auto;position:relative}
+  .roof{width:0;height:0;border-left:95px solid transparent;border-right:95px solid transparent;border-bottom:60px solid #6b3b1f;margin-left:-10px}
+  .body{background:#8b5a2b;padding:12px 0 16px;border-radius:0 0 10px 10px}
+  .door{width:44px;height:34px;margin:-74px auto 8px;position:relative;overflow:visible}
+  .door .l,.door .r{position:absolute;top:0;width:22px;height:34px;background:#4a2511;transition:transform .4s;z-index:2}
+  .door .l{left:0;transform-origin:left}.door .r{right:0;transform-origin:right}
+  .door.open .l{transform:perspective(200px) rotateY(-80deg)}.door.open .r{transform:perspective(200px) rotateY(80deg)}
+  .bird{position:absolute;left:4px;top:2px;font-size:1.8rem;transition:transform .4s;z-index:1}
+  .door.open .bird{transform:translateY(-6px) scale(1.4)}
+  .face{width:110px;height:110px;border-radius:50%;background:#fff8e7;margin:30px auto 0;position:relative;border:5px solid #d4a017}
+  .hand{position:absolute;left:50%;bottom:50%;background:#333;transform-origin:bottom center;border-radius:3px}
+  .h{width:5px;height:30px;margin-left:-2.5px}.m{width:3px;height:42px;margin-left:-1.5px}.s{width:1px;height:46px;background:#c00}
+  .pend{width:4px;height:60px;background:#d4a017;margin:auto;transform-origin:top;animation:sw 1s ease-in-out infinite alternate}
+  .pend::after{content:'';display:block;width:22px;height:22px;border-radius:50%;background:#d4a017;margin:56px 0 0 -9px}
+  @keyframes sw{from{transform:rotate(18deg)}to{transform:rotate(-18deg)}}
+  #digital{font-size:1.4rem;font-weight:bold;color:#5a2a27;margin-top:.3rem}
+  #kuku{font-size:1.5rem;font-weight:bold;color:#c0392b;height:1.6rem}
+</style>
+</head>
+<body>
+<div id="score">Złapane: 0</div>
+<h1>Cześć! 👋</h1>
+<p>Spróbuj złapać kota. Powodzenia 😼<br>Kliknij gdziekolwiek, żeby odpalić konfetti z emoji.</p>
+<div id="cat">🐱</div>
+<script>
+const cat=document.getElementById('cat'),score=document.getElementById('score');
+let caught=0,x=innerWidth/2,y=innerHeight*0.75;
+const place=()=>{cat.style.left=x+'px';cat.style.top=y+'px'};place();
+document.addEventListener('mousemove',e=>{
+  const dx=x-e.clientX,dy=y-e.clientY,d=Math.hypot(dx,dy);
+  if(d<140){x+=dx/d*90;y+=dy/d*90;
+    if(x<20||x>innerWidth-100)x=Math.random()*(innerWidth-120)+20;
+    if(y<20||y>innerHeight-100)y=Math.random()*(innerHeight-120)+20;
+    cat.style.transform='rotate('+(Math.random()*60-30)+'deg) scale(1.2)';place();
+    setTimeout(()=>cat.style.transform='',200);}
+});
+cat.addEventListener('click',e=>{e.stopPropagation();caught++;score.textContent='Złapane: '+caught;cat.textContent=['🙀','😹','😻','😾'][caught%4];burst(e.clientX,e.clientY,30)});
+const em=['🎉','🐟','🍕','🦄','💥','🌮','🐸','⭐'];
+function burst(cx,cy,n){for(let i=0;i<n;i++){const s=document.createElement('div');s.className='emoji';s.textContent=em[Math.random()*em.length|0];s.style.left=cx+'px';s.style.top=cy+'px';const a=Math.random()*Math.PI*2,r=150+Math.random()*250;s.style.setProperty('--dx',Math.cos(a)*r+'px');s.style.setProperty('--dy',Math.sin(a)*r+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),1700);}}
+document.addEventListener('click',e=>burst(e.clientX,e.clientY,15));
+</script>
+
+<div class="panel" id="ttt"><b>Kółko i krzyżyk</b><div id="status">Ruch: ❌</div><div id="board"></div><button id="reset">Nowa gra</button></div>
+<div class="panel" id="clock"><div class="house"><div class="roof"></div><div class="body">
+<div class="door" id="door"><span class="bird">🐦</span><div class="l"></div><div class="r"></div></div>
+<div class="face"><div class="hand h" id="hh"></div><div class="hand m" id="mh"></div><div class="hand s" id="sh"></div></div>
+</div><div class="pend"></div></div><div id="digital"></div><div id="kuku"></div><small>Kliknij zegar, żeby zawołać kukułkę</small></div>
+<script>
+document.querySelectorAll('.panel').forEach(p=>p.addEventListener('click',e=>e.stopPropagation()));
+// kółko i krzyżyk (gracz ❌ vs komputer ⭕)
+const B=document.getElementById('board'),st=document.getElementById('status');let g,over;
+const L=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+const win=b=>{for(const[a,c,d]of L)if(b[a]&&b[a]===b[c]&&b[a]===b[d])return b[a];return b.every(x=>x)?'remis':null};
+function draw(){B.innerHTML='';g.forEach((v,i)=>{const t=document.createElement('button');t.textContent=v||'';t.onclick=()=>move(i);B.appendChild(t)})}
+function end(w){over=true;st.textContent=w==='remis'?'Remis 🤝':w==='❌'?'Wygrałeś! 🎉':'Komputer wygrał 🤖';if(w==='❌'){const r=B.getBoundingClientRect();burst(r.left+100,r.top+100,40)}}
+function ai(){const f=g.map((v,i)=>v?null:i).filter(i=>i!==null);
+ for(const s of['⭕','❌'])for(const i of f){g[i]=s;const w=win(g);g[i]=null;if(w===s)return i}
+ if(!g[4])return 4;return f[Math.random()*f.length|0]}
+function move(i){if(over||g[i])return;g[i]='❌';let w=win(g);if(w){draw();return end(w)}
+ g[ai()]='⭕';draw();w=win(g);if(w)return end(w);st.textContent='Ruch: ❌'}
+function reset(){g=Array(9).fill(null);over=false;st.textContent='Ruch: ❌';draw()}
+document.getElementById('reset').onclick=reset;reset();
+// zegar z kukułką
+const door=document.getElementById('door'),kk=document.getElementById('kuku');let AC;
+function beep(f,t){AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),v=AC.createGain();o.frequency.value=f;o.connect(v);v.connect(AC.destination);v.gain.setValueAtTime(.3,AC.currentTime+t);v.gain.exponentialRampToValueAtTime(.001,AC.currentTime+t+.3);o.start(AC.currentTime+t);o.stop(AC.currentTime+t+.35)}
+function cuckoo(n){n=Math.min(n,12);let k=0;const one=()=>{if(k++>=n){door.classList.remove('open');kk.textContent='';return}
+ door.classList.add('open');kk.textContent='Kuku!'+(n>1?' ('+k+')':'');try{beep(784,0);beep(622,.35)}catch(e){}
+ setTimeout(()=>{door.classList.remove('open')},700);setTimeout(one,1100)};one()}
+document.getElementById('clock').addEventListener('click',()=>cuckoo(1));
+let last=-1;function tick(){const d=new Date(),h=d.getHours(),m=d.getMinutes(),s=d.getSeconds();
+ document.getElementById('hh').style.transform='rotate('+((h%12)*30+m*.5)+'deg)';
+ document.getElementById('mh').style.transform='rotate('+(m*6)+'deg)';
+ document.getElementById('sh').style.transform='rotate('+(s*6)+'deg)';
+ document.getElementById('digital').textContent=d.toLocaleTimeString('pl-PL');
+ if(m===0&&s===0&&last!==h){last=h;cuckoo(h%12||12)} else if(m===30&&s===0)cuckoo(1)}
+tick();setInterval(tick,1000);
+</script>
+<a href="../" style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9999;background:#b3202a;color:#fff;padding:8px 16px;border-radius:20px;font:bold 14px sans-serif;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3)">🎄 Choinki – nowa strona</a>
+</body>
+</html>
