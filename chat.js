@@ -8,7 +8,7 @@ const priceTbl=rows=>'<table>'+rows.map(r=>'<tr>'+r.map((c,i)=>`<td>${i?heads[i]
 const priceFor=n=>{const r=prices.find(p=>norm(p[0]).includes(n));return r?{html:`<b>${r[0]}</b> – przykładowe ceny:<table>${r.slice(1).map((c,i)=>`<tr><td>${heads[i+1]}</td><td><b>${c}</b></td></tr>`).join('')}</table>Ceny orientacyjne, zależą od konkretnego drzewka.`,act:go('cennik')}:null};
 const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ł/g,'l');
 const A={
- godziny:()=>({html:'Zapraszamy <b>od 5 do 20 grudnia</b>, codziennie w godz. <b>15:00–22:00</b> 🕒\nTakże w weekendy!',act:go('godziny')}),
+ godziny:()=>({html:'Zapraszamy <b>od 5 do 20 grudnia</b>, codziennie w godz. <b>14:00–22:00</b> 🕒\nTakże w weekendy!',act:go('godziny')}),
  ceny:()=>({html:'Przykładowy cennik (wg wysokości):'+'<table>'+prices.map(r=>`<tr><td><b>${r[0]}</b></td><td>od ${r[1]}</td></tr>`).join('')+'</table>Dodatki: stojak od 75 zł, siatkowanie gratis, docięcie pnia 10 zł.',act:go('cennik')}),
  dowoz:()=>({html:'🚚 Dowozimy choinki po <b>Mokotowie za 30 zł</b>. Na miejscu zapakujemy drzewko w siatkę (<b>gratis</b>), a stojak dobierzesz <b>od 75 zł</b>.'}),
  dojazd:()=>({html:'📍 Znajdziesz nas przy <b>ul. Bluszczańskiej</b> w Warszawie (Mokotów, Siekierki).',act:go('dojazd')}),

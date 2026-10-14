@@ -6,9 +6,9 @@ const io=new IntersectionObserver(e=>e.forEach(en=>{if(en.isIntersecting){en.tar
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 const st=document.getElementById('status'),cnt=document.getElementById('count');
 function tick(){const n=new Date(),y=n.getMonth()===11&&n.getDate()>20?n.getFullYear()+1:n.getFullYear();
-const start=new Date(y,11,5,15),end=new Date(y,11,20,22);let target;
-if(n>=start&&n<=end){const h=n.getHours();if(h>=15&&h<22){st.textContent='🎄 Otwarte teraz! Zapraszamy do 22:00';st.className='status open reveal in';cnt.style.display='none';return}
-st.textContent='Dziś otwieramy o 15:00 – zostało:';st.className='status reveal in';target=new Date(n);if(h>=22)target.setDate(target.getDate()+1);target.setHours(15,0,0,0)}
+const start=new Date(y,11,5,14),end=new Date(y,11,20,22);let target;
+if(n>=start&&n<=end){const h=n.getHours();if(h>=14&&h<22){st.textContent='🎄 Otwarte teraz! Zapraszamy do 22:00';st.className='status open reveal in';cnt.style.display='none';return}
+st.textContent='Dziś otwieramy o 14:00 – zostało:';st.className='status reveal in';target=new Date(n);if(h>=22)target.setDate(target.getDate()+1);target.setHours(14,0,0,0)}
 else{st.textContent='Do otwarcia sezonu zostało:';target=start}
 cnt.style.display='';let d=Math.max(0,(target-n)/1000);
 ['d','h','m','s'].forEach((k,i)=>{const v=[86400,3600,60,1][i];document.getElementById(k).textContent=Math.floor(d/v);d%=v})}
